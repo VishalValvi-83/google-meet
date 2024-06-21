@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './footer.css'
+import './../membercards/ParticipantsCard'
 import micIcon from "./icons/micon.svg"
 import micOffIcon from "./icons/micoff.svg"
 import videocamIcon from "./icons/videocam.svg"
@@ -24,9 +25,15 @@ import Disappointed from './icons/disappointed_relieved.png';
 import thinkingFace from './icons/thinking_face.png';
 import wow from './icons/open_mouth.png';
 import info from './icons/info.svg';
+import infoActive from './icons/infoActive.svg';
 import Participants from "./icons/participants.svg"
+import ParticipantsActive from "./icons/participantsActive.svg"
 import chat from './icons/chat.svg';
+import chatActive from './icons/chatActive.svg';
+
 import Activities from './icons/category.svg';
+import ActivitiesActive from './icons/categorsActive.svg';
+
 const Footer = () => {
   const [micOn, setMicOn] = useState(true);
   const [videoOn, setVideoOn] = useState(true);
@@ -37,11 +44,19 @@ const Footer = () => {
   const [captionOn, setCaption ] = useState(false);
   const [notification, setNotification] = useState('');
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+  const [infoOn, setInfo ] = useState(false);
+  const [ParticipantsOn, setParticipants ] = useState(false);
+  const [chatOn, setChat ] = useState(false);
+  const [ActivitiesOn, setActivities ] = useState(false);
+
 
   let handRaiseIconSrc = isHandRaised ? raisedHandActiveIcon : handRaiseIcon;
   let handRaiseButtonClass = isHandRaised ? 'footer-button hand-raised-active' : 'footer-button';
 
- 
+  const toggleCaption = () => {
+    setCaption(!captionOn);
+    showNotification(`Caption ${!captionOn ? 'On' : 'Off'}`);
+  };
 
   let captionIconSrc = captionOn ? captionIconActive : captionIcon
   let captionButtonClass = captionOn ? 'footer-button hand-raised-active' : 'footer-button';
@@ -74,7 +89,7 @@ const Footer = () => {
       <button className={videoOn ? 'footer-button':'footer-button red-active' } onClick={() => setVideoOn(!videoOn)}>
         <img  src={videoOn ? videocamIcon : videocamOffIcon} alt="Video" />
       </button>
-      <button className={captionButtonClass} onClick={() => setCaption(!captionOn)}>
+      <button className={captionButtonClass} onClick={toggleCaption}>
         <img  src={captionIconSrc} alt="Video" />
       </button>
       <div className="reaction-container">
@@ -115,18 +130,19 @@ const Footer = () => {
       <button className="footer-button end-call">
         <img src={callEndIcon} alt="End Call" />
       </button>
+      
       <div className="footer-right">
-      <button className="footer-button right-footer-button ">
-        <img src={info} alt="End Call" />
+      <button className="footer-button right-footer-button " onClick={() => setInfo(!infoOn)}>
+        <img src={infoOn ? infoActive : info} alt="End Call" />
       </button>
-      <button className="footer-button right-footer-button ">
-        <img src={Participants} alt="group" />
+      <button className="footer-button right-footer-button " onClick={() => setParticipants(!ParticipantsOn)}>
+        <img src={ParticipantsOn ? ParticipantsActive : Participants} alt="group" />
       </button> 
-      <button className="footer-button right-footer-button ">
-        <img src={chat} alt="Chat" />
+      <button className="footer-button right-footer-button " onClick={() => setChat(!chatOn)}> 
+        <img src={chatOn ? chatActive : chat} alt="Chat" />
       </button> 
-      <button className="footer-button right-footer-button ">
-        <img src={Activities} alt="End Call" />
+      <button className="footer-button right-footer-button " onClick={() => setActivities(!ActivitiesOn)}>
+        <img src={ActivitiesOn ? ActivitiesActive: Activities} alt="End Call" />
       </button>
       </div>
     </div>
